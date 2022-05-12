@@ -40,7 +40,25 @@ public class Function {
         // Parse query parameter
         final String query = request.getQueryParameters().get("name");
         final String name = request.getBody().orElse(query);
+        HttpGet request = new HttpGet("https://www.google.com");
 
+        try (CloseableHttpClient httpClient = HttpClients.createDefault();
+             CloseableHttpResponse response = httpClient.execute(request)) {
+
+            // Get HttpResponse Status
+            System.out.println(response.getProtocolVersion());              // HTTP/1.1
+            System.out.println(response.getStatusLine().getStatusCode());   // 200
+            System.out.println(response.getStatusLine().getReasonPhrase()); // OK
+            System.out.println(response.getStatusLine().toString());        // HTTP/1.1 200 OK
+
+            HttpEntity entity = response.getEntity();
+            if (entity != null) {
+                // return it as a String
+                String result = EntityUtils.toString(entity);
+                System.out.println(result);
+            }
+
+        }
         if (name == null) {
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please pass a name on the query string or in the request body").build();
         } else {

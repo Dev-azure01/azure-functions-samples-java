@@ -28,6 +28,11 @@
             <version>${azure.functions.java.library.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.10</version>
+	    </dependency>
         <!-- Test -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
